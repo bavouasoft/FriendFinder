@@ -194,7 +194,67 @@
   </div>
 
 
-
+  <script type="text/javascript">
+    //takes in inputs
+    $('#submit').on('click', (event)=>{
+        //console.log("you just clicked");
+        event.preventDefault();
+        
+        formValidation =()=>{
+            // input forms validation
+            let formValid = true;
+            $('.form-control').each(function(){
+                if($(this).val()===""){
+                    formValid = false;
+                }
+            });
+            $('.chosen-select').each(function(){
+                if ($(this).val() ===""){
+                    formValid = false;
+                }
+            });
+            return formValid;
+        }
+        if(formValidation()){
+            //build object of user inputs
+            let userData = {
+                name: $('#name').val(),
+                photo: $('#photo').val(),
+                scores: [
+                    $('#q1').val(),
+                    $('#q2').val(),
+                    $('#q3').val(),
+                    $('#q4').val(),
+                    $('#q5').val(),
+                    $('#q6').val(),
+                    $('#q7').val(),
+                    $('#q8').val(),
+                    $('#q9').val(),
+                    $('#q10').val(),
+                ]
+            };
+            
+            // post AJAX call
+            $.ajax({
+                method: "POST", 
+                url: "/api/friends",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify(userData)
+            }).then(data=>{
+                console.log(data);
+                $("#match-name").text(data.name);
+                $("#match-img").attr("src",data.photo);
+                $("#resultsModal").modal("toggle");
+            });
+        }
+        else{
+            console.log("please fill out all fields");
+        }
+    });
+</script>
 
 
 
