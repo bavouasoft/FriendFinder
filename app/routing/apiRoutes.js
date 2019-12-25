@@ -1,18 +1,18 @@
-var friendsData = require("../data/friends");
+let appData = require("../data/friends.js");
 
-findMatch = userScore => {
-  var index = 0;
-  var lowestDiff = 0;
-  for (var i = 0; i < friendsData.length; i++) {
-    var totalDiff = 0;
-    for (var j = 0; j < userScore.length; j++) {
-      var scoreDiff = Math.abs(userScore[j] - friendsData[i].scores[j]);
+matchFinder = userScore => {
+  let index = 0;
+  let lowDiff = 0;
+  for (let i = 0; i < appData.length; i++) {
+    let totalDiff = 0;
+    for (let j = 0; j < userScore.length; j++) {
+      let scoreDiff = Math.abs(userScore[j] - appData[i].scores[j]);
       totalDiff += scoreDiff;
     }
     if (i == 0) {
-      lowestDiff = totalDiff;
-    } else if (i != 0 && totalDiff < lowestDiff) {
-      lowestDiff = totalDiff;
+      lowDiff = totalDiff;
+    } else if (i != 0 && totalDiff < lowDiff) {
+      lowDiff = totalDiff;
       index = i;
     }
   }
@@ -21,13 +21,13 @@ findMatch = userScore => {
 
 module.exports = app => {
   app.get("/api/friends", (req, res) => {
-    res.json(friendsData);
+    res.json(appData);
   });
 
   app.post("/api/friends", (req, res) => {
-    var userData = req.body;
-    var index = findMatch(userData.scores);
-    friendsData.push(req.body);
-    res.json(friendsData[index]);
+    let userData = req.body;
+    let index = matchFinder(userData.scores);
+    appData.push(req.body);
+    res.json(appData[index]);
   });
 };

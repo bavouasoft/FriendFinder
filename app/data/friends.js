@@ -1,4 +1,4 @@
-let appArray = [
+let appData = [
   {
     name: "Ralph Rabago",
     photo:
@@ -49,4 +49,4 @@ let appArray = [
   }
 ];
 
-module.exports = appArray;
+module.exports = appData;
