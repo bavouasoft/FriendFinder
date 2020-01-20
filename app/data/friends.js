@@ -1,4 +1,4 @@
-let appData = [
+let friends = [
   {
     name: "Ralph Rabago",
     photo:
@@ -48,5 +48,6 @@ let appData = [
     scores: ["1", "2", "5", "3", "4", "5", "1", "3", "2", "3"]
   }
 ];
+// Here we export the array. This makes it accessible to other files using require.
 
-module.exports = appData;
+module.exports = friends;
